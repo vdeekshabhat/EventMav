@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_sign_up"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.deekshabhat.eventmav.Sign_up">
+
+    <TextView
+        android:text="Sign up"
+        android:textSize="25dp"
+        android:textColor="#0E18D3"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="130dp"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="11dp"
+        android:id="@+id/editText7"
+        android:hint="First Name"
+        android:textColorHint="#0E18D3"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:layout_below="@+id/editText8"
+        android:layout_alignStart="@+id/editText8"
+        android:id="@+id/editText9"
+        android:hint="Mav Email ID"
+        android:textColorHint="#0E18D3"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:layout_below="@+id/editText9"
+        android:layout_alignStart="@+id/editText9"
+        android:id="@+id/editText10"
+        android:hint="Mav ID"
+        android:textColorHint="#0E18D3"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/editText12"
+        android:layout_below="@+id/editText11"
+        android:layout_alignStart="@+id/editText11"
+        android:hint="Confirm password"
+        android:textColorHint="#0E18D3"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/editText11"
+        android:hint="Password"
+        android:layout_below="@+id/editText10"
+        android:layout_alignStart="@+id/editText10"
+        android:textColorHint="#0E18D3"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editText8"
+        android:layout_below="@+id/editText7"
+        android:layout_alignStart="@+id/editText7"
+        android:hint="Last Name"
+        android:textColorHint="#0E18D3"/>
+
+    <Button
+        android:text="Create an account"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/radioButton3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/button"
+        android:textColorHint="#0E18D3"/>
+
+    <RadioButton
+        android:text="Register as Organizer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:id="@+id/radioButton3"
+        android:textColor="#0E18D3"
+        android:layout_below="@+id/editText12"
+        android:layout_alignStart="@+id/editText12" />
+</RelativeLayout>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/loginimage"
+    android:gravity="center|center"
+    tools:context="com.example.deekshabhat.eventmav.LoginActivity">
+
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_marginEnd="11dp"
+        android:id="@+id/mUsername"
+        android:layout_alignBaseline="@+id/username"
+        android:layout_alignBottom="@+id/username"
+        android:layout_alignParentEnd="true"
+        android:text="vdeekshabhat@gmail.com" />
+
+    <TextView
+        android:text="Password"
+        android:textSize="20dp"
+        android:textColor="#0E18D3"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:id="@+id/password"
+        android:layout_below="@+id/mUsername"
+        android:layout_alignStart="@+id/username" />
+
+    <Button
+        android:text="Login"
+        android:textColor="#0E18D3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:id="@+id/mLogin"
+        android:layout_below="@+id/mPassword"
+        android:layout_alignStart="@+id/password" />
+
+    <Button
+        android:text="Guest"
+        android:textColor="#0E18D3"
+        android:layout_width="152dp"
+        android:layout_height="45dp"
+        android:id="@+id/mGuest"
+        android:layout_below="@+id/mLogin"
+        android:layout_alignStart="@+id/mLogin" />
+
+    <TextView
+        android:text="Username"
+        android:textSize="20dp"
+        android:textColor="#0E18D3"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:id="@+id/username"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="17dp" />
+
+    <Button
+        android:text="Register"
+        android:textColor="#0E18D3"
+        android:layout_width="152dp"
+        android:layout_height="45dp"
+        android:id="@+id/mRegister"
+        android:layout_below="@+id/mLogin"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/mPassword"
+        android:layout_alignBaseline="@+id/password"
+        android:layout_alignBottom="@+id/password"
+        android:layout_alignParentEnd="true"
+        android:text="Chinku#1" />
+
+</RelativeLayout>
