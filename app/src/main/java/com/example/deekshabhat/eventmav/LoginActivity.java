@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void startSignIn() {
         ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
-
+        // I am dota this is my code.
         String email = mUsername.getText().toString();
         String password = mPassword.getText().toString();
 
