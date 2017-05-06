@@ -1,6 +1,7 @@
 package com.example.deekshabhat.eventmav;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.LoginFilter;
@@ -133,6 +134,11 @@ public class LoginActivity extends AppCompatActivity {
 
         }
         progressDialog.dismiss();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "Please login!!", Toast.LENGTH_LONG).show();
     }
 }
 

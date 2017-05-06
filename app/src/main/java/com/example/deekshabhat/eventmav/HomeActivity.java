@@ -1,5 +1,6 @@
 package com.example.deekshabhat.eventmav;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,6 +45,8 @@ public class HomeActivity extends AppCompatActivity
 
         mAuth = FirebaseAuth.getInstance();
         String uid = mAuth.getCurrentUser().getUid();
+        getSharedPreferences("EventMavPreferences", Context.MODE_PRIVATE).edit().putString("uid", uid).commit();
+
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Events");
     }
 
