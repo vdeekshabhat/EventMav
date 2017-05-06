@@ -2,47 +2,54 @@ package com.example.deekshabhat.eventmav;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.ListView;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-public class AddEventActivity extends AppCompatActivity
+import java.util.ArrayList;
+import java.util.Map;
+
+public class RegisteredEventActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-    private EditText etEventName, etEventDate, etEventLocation, etDescription, etEventCount ;
-    private Button btSubmitEvent, btCancelEvent, btMarkMap;
-    private Spinner spEventCategory;
-    private String eCategory;
+    private ArrayList<String> mEventName= new ArrayList<>();
     private String userID;
-    EventContainer ev;
+    private ListView lvMyRegisteredEvent;
+    private String listEventName;
+    private ArrayList<String> arKey= new ArrayList<>();
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_event);
+        setContentView(R.layout.activity_registered_event);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -51,66 +58,59 @@ public class AddEventActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Events");
-        etEventName = (EditText) findViewById(R.id.etEventName);
-        etEventDate = (EditText) findViewById(R.id.etEventDate);
-        etEventLocation = (EditText) findViewById(R.id.etEventLocation);
-        etDescription = (EditText) findViewById(R.id.etDescription);
-        etEventCount = (EditText) findViewById(R.id.etEventNumber);
-        btSubmitEvent = (Button) findViewById(R.id.btSubmitEvent);
-        btCancelEvent = (Button) findViewById(R.id.btCancelEvent);
-        spEventCategory = (Spinner) findViewById(R.id.eventCategory);
-        ev  = new EventContainer();
-
-        spEventCategory=(Spinner) findViewById(R.id.eventCategory);
-        String [] category= new String[] {"Music","Science & Tech", "Business", "Sports", "Community", "Health", "Others"};
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,category);
-        spEventCategory.setAdapter(adapter);
-
-        spEventCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                eCategory=spEventCategory.getSelectedItem().toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        btSubmitEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                userID=mAuth.getCurrentUser().getUid();
-                storeOnFirebase();
-            }
-        });
+        userID=mAuth.getCurrentUser().getUid();
+        lvMyRegisteredEvent= (ListView) findViewById(R.id.lvMyRegisteredEvent);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Registration");
+        displayEvent();
 
 
 
 
     }
 
-    public void storeOnFirebase(){
-        String EventName = etEventName.getText().toString().trim();
-        String EventDate = etEventDate.getText().toString().trim();
-        String EventLocation = etEventLocation.getText().toString().trim();
-        String EventDescription = etDescription.getText().toString().trim();
-        String EventCount = etEventCount.getText().toString().trim();
-        userID=mAuth.getCurrentUser().getUid();
-        ev.setEventName(EventName);
-        ev.setEvenDescription(EventDescription);
-        ev.setEvenLocation(EventLocation);
-        ev.setEventCategory(eCategory);
-        ev.setEventCount(EventCount);
-        ev.setEventDate(EventDate);
-        ev.setUserID(userID);
-        mDatabase.push().setValue(ev);
-        startActivity(new Intent(getBaseContext(),HomeActivity.class));
-        Toast.makeText(AddEventActivity.this, "Success", Toast.LENGTH_LONG).show();
+    public void displayEvent(){
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot snap: dataSnapshot.getChildren()) {
+                    if(snap.getKey().equals(userID)){
+                         for (DataSnapshot childEventSnapshot : snap.getChildren()){
+                             listEventName= (childEventSnapshot.getValue()).toString();
+                             mEventName.add(listEventName);
+                             String key=childEventSnapshot.getKey();
+                             arKey.add(key);
+
+                         }
+
+                    }
+                }
+                LoadListView();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+    private void LoadListView(){
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, mEventName);
+        lvMyRegisteredEvent.setAdapter(adapter);
+        lvMyRegisteredEvent.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent=new Intent(getBaseContext(), EventDetailsActivity.class);
+                        intent.putExtra("eventID", arKey.get(position) );
+                        startActivity(intent);
+
+                    }
+
+
+                });
+
     }
 
     @Override
@@ -126,7 +126,7 @@ public class AddEventActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.add_event, menu);
+        getMenuInflater().inflate(R.menu.registered_event, menu);
         return true;
     }
 
@@ -151,20 +151,18 @@ public class AddEventActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_send) {
+        if (id == R.id.nav_camera) {
             startActivity(new Intent(getBaseContext(), HomeActivity.class));
-        }
-        else if (id == R.id.nav_camera) {
+        } else if (id == R.id.nav_camera) {
             startActivity(new Intent(getBaseContext(),ProfileActivity.class));
         } else if (id == R.id.nav_gallery) {
-
+            startActivity(new Intent(getBaseContext(),AddEventActivity.class));
         } else if (id == R.id.nav_slideshow) {
             startActivity(new Intent(getBaseContext(),MyEventActivity.class));
 
         } else if (id == R.id.nav_manage) {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(getBaseContext(),LoginActivity.class));
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

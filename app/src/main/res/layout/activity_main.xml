@@ -25,7 +25,7 @@
         android:layout_alignBaseline="@+id/username"
         android:layout_alignBottom="@+id/username"
         android:layout_alignParentEnd="true"
-        android:text="vdeekshabhat@gmail.com" />
+        android:text="deeksha.bhat@mavs.uta.edu" />
 
     <TextView
         android:text="Password"

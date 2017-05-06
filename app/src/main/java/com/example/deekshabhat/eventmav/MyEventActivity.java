@@ -13,11 +13,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+
+
 public class MyEventActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+        private Button buMyRegisteredEvent;
+        private Button buMyCreatedEvent;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +43,27 @@ public class MyEventActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        buMyRegisteredEvent=(Button) findViewById(R.id.buMyRegisteredEvent);
+        buMyCreatedEvent=(Button) findViewById(R.id.buMyCreatedEvent);
+        buMyCreatedEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(getBaseContext(),CreatedEventActivity.class));
+
+            }
+        });
+        buMyRegisteredEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getBaseContext(),RegisteredEventActivity.class));
+
+            }
+        });
+
+
+
+
     }
 
     @Override
@@ -85,7 +113,9 @@ public class MyEventActivity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-            FirebaseAuth.getInstance().signOut();        }
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(getBaseContext(),LoginActivity.class));
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

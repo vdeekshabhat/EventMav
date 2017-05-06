@@ -13,11 +13,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
+    private EditText etEditFirstName;
+    private EditText etEditLastName;
+    private TextView tvEditMavID;
+    private Button buEditSubmit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +53,53 @@ public class ProfileActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+        etEditFirstName = (EditText) findViewById(R.id.etEditFirstName);
+        etEditLastName = (EditText) findViewById(R.id.etEditLastName);
+        tvEditMavID = (TextView) findViewById(R.id.tvEditMavID);
+        buEditSubmit=(Button) findViewById(R.id.buEditSubmit);
+
+        loadProfile();
+        buEditSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String firstName = etEditFirstName.getText().toString().trim();
+                String lastName = etEditLastName.getText().toString().trim();
+                String mavid = tvEditMavID.getText().toString().trim();
+
+                String Uid = mAuth.getCurrentUser().getUid();
+                DatabaseReference current_user = mDatabase.child(Uid);
+                current_user.child("firstname").setValue(firstName);
+                current_user.child("lastname").setValue(lastName);
+                current_user.child("mavid").setValue(mavid);
+                Toast.makeText(getApplicationContext(), "PROFILE UPDATED!", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
-    @Override
+    private void loadProfile() {
+        String Uid = mAuth.getCurrentUser().getUid();
+        DatabaseReference current_user = mDatabase.child(Uid);
+
+        current_user.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                etEditFirstName.setText(dataSnapshot.child("firstname").getValue(String.class));
+                etEditLastName.setText(dataSnapshot.child("lastname").getValue(String.class));
+                tvEditMavID.setText(dataSnapshot.child("mavid").getValue(String.class));
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+        @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -87,6 +148,8 @@ public class ProfileActivity extends AppCompatActivity
             startActivity(new Intent(getBaseContext(),MyEventActivity.class));
         } else if (id == R.id.nav_manage) {
             FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(getBaseContext(),LoginActivity.class));
+
 
         }
 

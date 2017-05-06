@@ -9,4 +9,10 @@
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_activity_my_event">MyEventActivity</string>
     <string name="title_activity_add_event">AddEventActivity</string>
+    <string name="title_activity_list_event">ListEvent</string>
+    <string name="title_activity_event_details">EventDetailsActivity</string>
+    <string name="title_activity_registered_event">RegisteredEventActivity</string>
+    <string name="title_activity_created_event">CreatedEventActivity</string>
+    <string name="title_activity_maps">Map</string>
+
 </resources>

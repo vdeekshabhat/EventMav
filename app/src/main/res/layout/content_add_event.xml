@@ -11,15 +11,85 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.deekshabhat.eventmav.AddEventActivity"
-    tools:showIn="@layout/app_bar_add_event">
+    >
 
-    <TextView
-        android:text="Add Events"
-        android:layout_width="wrap_content"
+    <EditText
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="151dp"
-        android:layout_marginTop="204dp"
-        android:id="@+id/textView7" />
+        android:id="@+id/etEventName"
+        android:hint="Name" />
+
+    <Button
+        android:text="Cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/btSubmitEvent"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="61dp"
+        android:id="@+id/btCancelEvent" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/etDescription"
+        android:hint="Description"
+        android:layout_below="@+id/etEventName"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:layout_marginTop="19dp"
+        android:id="@+id/etEventDate"
+        android:hint="date"
+        android:layout_below="@+id/etDescription"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/etEventNumber"
+        android:hint="Number of seats available"
+        android:layout_marginTop="11dp"
+        android:layout_below="@+id/etEventDate"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/eventCategory"
+        android:layout_below="@+id/etEventLocation"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/etEventLocation"
+        android:layout_marginTop="21dp"
+        android:hint="Location"
+        android:layout_below="@+id/etEventNumber"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="61dp"
+        android:id="@+id/btSubmitEvent"
+        android:layout_below="@+id/eventCategory"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>

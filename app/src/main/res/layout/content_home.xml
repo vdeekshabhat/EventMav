@@ -13,12 +13,67 @@
     tools:context="com.example.deekshabhat.eventmav.HomeActivity"
     tools:showIn="@layout/app_bar_home">
 
-    <TextView
-        android:text="Home"
+    <Button
+        android:text="Music"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:id="@+id/buMusic"
+        android:onClick="tileClick"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="54dp"
-        android:id="@+id/textView4" />
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Science and Technology"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/buMusic"
+        android:layout_toEndOf="@+id/buMusic"
+        android:layout_marginStart="30dp"
+        android:onClick="tileClick"
+        android:id="@+id/buScience" />
+
+    <Button
+        android:text="Sports"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/buBusiness"
+        android:layout_alignStart="@+id/buScience"
+        android:id="@+id/buSports" />
+
+    <Button
+        android:text="Health"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/buCommunity"
+        android:layout_alignEnd="@+id/buScience"
+        android:id="@+id/buHealth" />
+
+    <Button
+        android:text="Business"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:id="@+id/buBusiness"
+        android:layout_below="@+id/buMusic"
+        android:layout_alignStart="@+id/buCommunity" />
+
+    <Button
+        android:text="Community"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buCommunity"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/buSports"
+        android:layout_toStartOf="@+id/buSports" />
+
+    <Button
+        android:text="Others"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:id="@+id/buOthers"
+        android:layout_below="@+id/buCommunity"
+        android:layout_alignEnd="@+id/buCommunity" />
+
 </RelativeLayout>

@@ -2,8 +2,7 @@ package com.example.deekshabhat.eventmav;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,11 +12,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
+    private Button buMusic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,15 +32,6 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -43,7 +41,26 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        mAuth = FirebaseAuth.getInstance();
+        String uid = mAuth.getCurrentUser().getUid();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Events");
     }
+
+    public void tileClick(View view) {
+        Intent intent=new Intent(getBaseContext(), ListEventActivity.class);
+        switch (view.getId()) {
+            case R.id.buMusic:
+                intent.putExtra("category", "Music");
+                startActivity(intent);
+                break;
+            case R.id.buBusiness:
+                break;
+
+        }
+    }
+
+
 
     @Override
     public void onBackPressed() {
@@ -94,6 +111,7 @@ public class HomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_manage) {
             FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(getBaseContext(),LoginActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
