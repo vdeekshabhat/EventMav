@@ -35,7 +35,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.Map;
 
 public class EventDetailsActivity extends AppCompatActivity
@@ -53,7 +58,8 @@ public class EventDetailsActivity extends AppCompatActivity
     private Button buDetailsRegister,budetailsNavigate, buDetailsShare, buDetailsRemind;
     private String userID;
     private int count;
-    private String eventName;
+    private String eventName,eventDate;
+    private Date D1,D2;
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 101;
 
     @Override
@@ -94,6 +100,32 @@ public class EventDetailsActivity extends AppCompatActivity
                 String subject = "Hey! Check this out - "+eventname;
                 String message = "Hello, Your friend has invited you to attend "+eventname;
                 shareEvent(message);
+            }
+        });
+        buDetailsRemind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+
+                SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+                String date=sdf.format(cal.getTime());
+                try {
+                    D2 = (Date) new SimpleDateFormat("MM/DD/yyyy").parse(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+                long diff = Math.abs(eventDate.getTime() - date.getTime());
+                long diffDays = diff / (24 * 60 * 60 * 1000);
+                Intent intent = new Intent(Intent.ACTION_EDIT);
+                intent.setType("vnd.android.cursor.item/event");
+                intent.putExtra("beginTime", cal.getTimeInMillis());
+                intent.putExtra("allDay", false);
+                intent.putExtra("rrule", "FREQ=DAILY");
+                intent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
+                intent.putExtra("title", "A Test Event from android app");
+                startActivity(intent);
             }
         });
 
@@ -232,7 +264,7 @@ public class EventDetailsActivity extends AppCompatActivity
 
     }
 
-    private void displayEventInfo() {
+    private void displayEventInfo()  {
         mDatabase.child("Events").child(eventID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -243,6 +275,14 @@ public class EventDetailsActivity extends AppCompatActivity
                 tvDetailsEventDescription.setText(dataSnapshot.child("evenDescription").getValue(String.class));
                 tvDetailsEventCount.setText(dataSnapshot.child("eventCount").getValue(String.class));
                 eventName=(dataSnapshot.child("eventName").getValue(String.class)).toString();
+                eventDate=(dataSnapshot.child("eventDate").getValue(String.class)).toString();
+                try {
+                     D1 = (Date) new SimpleDateFormat("MM/DD/yyyy").parse(eventDate);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
                 count = Integer.parseInt(dataSnapshot.child("eventCount").getValue().toString());
                 if (count == 0){
                     // Remove display button
