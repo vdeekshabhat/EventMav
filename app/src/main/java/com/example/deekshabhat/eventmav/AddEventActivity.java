@@ -21,20 +21,26 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class AddEventActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
-    private EditText etEventName, etEventDate, etEventLocation, etDescription, etEventCount ;
+    private DatabaseReference mDatabase,mDatabaseRef;
+    private EditText etEventName, etEventDate, etEventLocation, etDescription, etEventCount, etEventTime ;
     private Button btSubmitEvent, btCancelEvent, btMarkMap;
     private Spinner spEventCategory;
     private String eCategory;
     private String userID;
     EventContainer ev;
+    String EventName;
+    boolean isValidForm=true;
+    String databaseEventID;
 
 
     @Override
@@ -53,11 +59,13 @@ public class AddEventActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         mAuth = FirebaseAuth.getInstance();
+        mDatabaseRef=FirebaseDatabase.getInstance().getReference();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Events");
         etEventName = (EditText) findViewById(R.id.etEventName);
         etEventDate = (EditText) findViewById(R.id.etEventDate);
         etEventLocation = (EditText) findViewById(R.id.etEventLocation);
         etDescription = (EditText) findViewById(R.id.etDescription);
+        etEventTime = (EditText) findViewById(R.id.etEventTime);
         etEventCount = (EditText) findViewById(R.id.etEventNumber);
         btSubmitEvent = (Button) findViewById(R.id.btSubmitEvent);
         btCancelEvent = (Button) findViewById(R.id.btCancelEvent);
@@ -86,6 +94,7 @@ public class AddEventActivity extends AppCompatActivity
             public void onClick(View v) {
                 userID=mAuth.getCurrentUser().getUid();
                 storeOnFirebase();
+
             }
         });
 
@@ -95,12 +104,15 @@ public class AddEventActivity extends AppCompatActivity
     }
 
     public void storeOnFirebase(){
-        String EventName = etEventName.getText().toString().trim();
+        EventName = etEventName.getText().toString().trim();
         String EventDate = etEventDate.getText().toString().trim();
         String EventLocation = etEventLocation.getText().toString().trim();
         String EventDescription = etDescription.getText().toString().trim();
         String EventCount = etEventCount.getText().toString().trim();
+        String EventTime=etEventTime.getText().toString().trim();
+
         userID=mAuth.getCurrentUser().getUid();
+        ev.setEventTime(EventTime);
         ev.setEventName(EventName);
         ev.setEvenDescription(EventDescription);
         ev.setEvenLocation(EventLocation);
@@ -108,10 +120,38 @@ public class AddEventActivity extends AppCompatActivity
         ev.setEventCount(EventCount);
         ev.setEventDate(EventDate);
         ev.setUserID(userID);
-        mDatabase.push().setValue(ev);
-        startActivity(new Intent(getBaseContext(),HomeActivity.class));
-        Toast.makeText(AddEventActivity.this, "Success", Toast.LENGTH_LONG).show();
+        if(EventName.isEmpty()){
+            etEventName.setError("Enter Event Name");
+            isValidForm = false;
+        }
+        if(EventDescription.isEmpty()){
+            etDescription.setError("Enter Event Description");
+            isValidForm = false;
+        }
+        if(EventLocation.isEmpty()){
+            etEventLocation.setError("Enter Event Location");
+            isValidForm = false;
+        }
+        if(EventDate.isEmpty()){
+            etEventDate.setError("Enter Event Date in MM/DD/YYYY format");
+            isValidForm = false;
+        }
+        if(EventCount.isEmpty()){
+            etEventCount.setError("Enter Number Of Seats Available");
+            isValidForm = false;
+        }
+        if(EventTime.isEmpty()){
+            etEventTime.setError("Enter Number Of Seats Available");
+            isValidForm = false;
+        }
+       if(isValidForm==true) {
+           mDatabase.push().setValue(ev);
+           mDatabaseRef.child("MyEvent").child(userID).child(databaseEventID).setValue(EventName);
+           startActivity(new Intent(getBaseContext(), HomeActivity.class));
+           Toast.makeText(AddEventActivity.this, "Success", Toast.LENGTH_LONG).show();
+       }
     }
+
 
     @Override
     public void onBackPressed() {
@@ -138,9 +178,9 @@ public class AddEventActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

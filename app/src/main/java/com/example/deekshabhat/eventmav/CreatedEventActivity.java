@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,8 +17,10 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,15 +28,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-
+import java.util.Map;
 public class CreatedEventActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-    private ListView lvMyCreatedEvent;
     private ArrayList<String> mEventName= new ArrayList<>();
     private String userID;
+    private ListView lvCreatedEvent;
     private String listEventName;
     private ArrayList<String> arKey= new ArrayList<>();
 
@@ -56,29 +58,31 @@ public class CreatedEventActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         mAuth = FirebaseAuth.getInstance();
         userID=mAuth.getCurrentUser().getUid();
-        lvMyCreatedEvent= (ListView) findViewById(R.id.lvMyRegisteredEvent);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Events");
+        lvCreatedEvent=(ListView) findViewById(R.id.lvCreatedEvent);
+        Log.d("wtf","lineView:"+lvCreatedEvent);
+        mDatabase=FirebaseDatabase.getInstance().getReference();
+
+
         displayEvent();
     }
-
-    public void displayEvent(){
-        mDatabase.addValueEventListener(new ValueEventListener() {
+    public void displayEvent()  {
+        mDatabase.child("MyEvent").child(userID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot snap: dataSnapshot.getChildren()) {
-                    for (DataSnapshot childEventSnapshot : snap.getChildren()){
-                  //  if(childEventSnapshot.child("userID").getValue(String.class).equals(userID)){
 
-                            listEventName= (snap.child("eventName").getValue(String.class));
-                            mEventName.add(listEventName);
-                            String key=snap.getKey();
-                            arKey.add(key);
+                    listEventName = snap.getValue().toString();
+                    mEventName.add(listEventName);
 
-                        }
+                }
+                if(mEventName.isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Nothing to display!!", Toast.LENGTH_LONG).show();
 
-                    }
-              //  }
-             //   LoadListView();
+                }
+                else {
+                    LoadListView();
+                }
+
 
             }
 
@@ -87,27 +91,11 @@ public class CreatedEventActivity extends AppCompatActivity
 
             }
         });
-
     }
-
-//    private void LoadListView(){
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, mEventName);
-//        lvMyCreatedEvent.setAdapter(adapter);
-//        lvMyCreatedEvent.setOnItemClickListener(
-//                new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                        Intent intent=new Intent(getBaseContext(), EventDetailsActivity.class);
-//                        intent.putExtra("eventID", arKey.get(position) );
-//                        startActivity(intent);
-//
-//                    }
-//
-//
-//                });
-//
-//    }
-
+    private void LoadListView() throws NullPointerException {
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, mEventName);
+        lvCreatedEvent.setAdapter(adapter);
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -146,9 +134,10 @@ public class CreatedEventActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_send) {
             startActivity(new Intent(getBaseContext(), HomeActivity.class));
-        } else if (id == R.id.nav_camera) {
+        }
+        else if (id == R.id.nav_camera) {
             startActivity(new Intent(getBaseContext(),ProfileActivity.class));
         } else if (id == R.id.nav_gallery) {
             startActivity(new Intent(getBaseContext(),AddEventActivity.class));

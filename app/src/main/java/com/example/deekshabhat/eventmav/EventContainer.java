@@ -14,7 +14,18 @@ public class EventContainer extends Application{
     private  String evenDescription;
     private  String eventCount;
     private  String eventCategory;
+    private  String eventTime;
     private String userID;
+
+    public String getEventTime() {
+        return eventTime;
+    }
+
+    public void setEventTime(String eventTime) {
+        this.eventTime = eventTime;
+    }
+
+
 
     public String getEventName() {
         return eventName;

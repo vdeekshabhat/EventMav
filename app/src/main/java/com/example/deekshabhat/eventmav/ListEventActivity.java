@@ -150,9 +150,9 @@ public class ListEventActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -163,9 +163,10 @@ public class ListEventActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_send) {
             startActivity(new Intent(getBaseContext(), HomeActivity.class));
-        } else if (id == R.id.nav_camera) {
+        }
+        else if (id == R.id.nav_camera) {
             startActivity(new Intent(getBaseContext(),ProfileActivity.class));
         } else if (id == R.id.nav_gallery) {
             startActivity(new Intent(getBaseContext(),AddEventActivity.class));

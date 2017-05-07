@@ -14,5 +14,6 @@
     <string name="title_activity_registered_event">RegisteredEventActivity</string>
     <string name="title_activity_created_event">CreatedEventActivity</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_my_created">MyCreatedActivity</string>
 
 </resources>

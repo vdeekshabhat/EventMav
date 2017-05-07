@@ -76,11 +76,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".CreatedEventActivity"
-            android:label="@string/title_activity_created_event"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".MapActivity"
             android:label="Maps"
             android:screenOrientation="portrait"
@@ -112,7 +107,12 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ForgotPasswordActivity"></activity>
+        <activity android:name=".ForgotPasswordActivity" />
+        <activity
+            android:name=".CreatedEventActivity"
+            android:label="@string/title_activity_created_event"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -60,7 +61,9 @@ public class RegisteredEventActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         mAuth = FirebaseAuth.getInstance();
         userID=mAuth.getCurrentUser().getUid();
+        Log.d("wtf", "listview: " + lvMyRegisteredEvent);
         lvMyRegisteredEvent= (ListView) findViewById(R.id.lvMyRegisteredEvent);
+        Log.d("wtf", "listview: " + lvMyRegisteredEvent);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Registration");
         displayEvent();
 
@@ -97,6 +100,7 @@ public class RegisteredEventActivity extends AppCompatActivity
     }
     private void LoadListView(){
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, mEventName);
+
         lvMyRegisteredEvent.setAdapter(adapter);
         lvMyRegisteredEvent.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
@@ -138,9 +142,9 @@ public class RegisteredEventActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -151,9 +155,11 @@ public class RegisteredEventActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+
+        if (id == R.id.nav_send) {
             startActivity(new Intent(getBaseContext(), HomeActivity.class));
-        } else if (id == R.id.nav_camera) {
+        }
+        else if (id == R.id.nav_camera) {
             startActivity(new Intent(getBaseContext(),ProfileActivity.class));
         } else if (id == R.id.nav_gallery) {
             startActivity(new Intent(getBaseContext(),AddEventActivity.class));

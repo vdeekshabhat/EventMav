@@ -33,8 +33,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     private void initSendEmail(String email_text){
         mAuth = FirebaseAuth.getInstance();
-        Toast.makeText(ForgotPasswordActivity.this, "Click Successful ", Toast.LENGTH_SHORT).show();
-        mAuth.sendPasswordResetEmail(email_text).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mAuth.sendPasswordResetEmail("deeksha.bhat@mavs.uta.edu").addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {

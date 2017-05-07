@@ -23,6 +23,4 @@
 
     <include layout="@layout/content_created_event" />
 
-
-
 </android.support.design.widget.CoordinatorLayout>

@@ -25,7 +25,7 @@ public class HomeActivity extends AppCompatActivity
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-    private Button buMusic;
+    private Button buMusic,buScience,buSports,buHealth,buCommunity,buBusiness,buOthers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,29 @@ public class HomeActivity extends AppCompatActivity
                 intent.putExtra("category", "Music");
                 startActivity(intent);
                 break;
+            case R.id.buScience:
+                intent.putExtra("category", "Science & Tech");
+                startActivity(intent);
+                break;
+            case R.id.buSports:
+                intent.putExtra("category", "Sports");
+                startActivity(intent);
+                break;
+            case R.id.buHealth:
+                intent.putExtra("category", "Health");
+                startActivity(intent);
+                break;
+            case R.id.buCommunity:
+                intent.putExtra("category", "Community");
+                startActivity(intent);
+                break;
             case R.id.buBusiness:
+                intent.putExtra("category", "Business");
+                startActivity(intent);
+                break;
+            case R.id.buOthers:
+                intent.putExtra("category", "Others");
+                startActivity(intent);
                 break;
 
         }
@@ -90,9 +112,9 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

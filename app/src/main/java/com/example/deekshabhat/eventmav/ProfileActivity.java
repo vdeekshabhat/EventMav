@@ -126,9 +126,9 @@ public class ProfileActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -141,18 +141,18 @@ public class ProfileActivity extends AppCompatActivity
 
 
         if (id == R.id.nav_send) {
-            startActivity(new Intent(getBaseContext(),HomeActivity.class));
+            startActivity(new Intent(getBaseContext(), HomeActivity.class));
         }
         else if (id == R.id.nav_camera) {
+            startActivity(new Intent(getBaseContext(),ProfileActivity.class));
         } else if (id == R.id.nav_gallery) {
             startActivity(new Intent(getBaseContext(),AddEventActivity.class));
         } else if (id == R.id.nav_slideshow) {
             startActivity(new Intent(getBaseContext(),MyEventActivity.class));
+
         } else if (id == R.id.nav_manage) {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(getBaseContext(),LoginActivity.class));
-
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -33,6 +34,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -48,7 +50,7 @@ public class EventDetailsActivity extends AppCompatActivity
     private TextView tvDetailsEventDescription;
     private TextView tvDetailsEventCount;
     private String eventID = null;
-    private Button buDetailsRegister,budetailsNavigate, buDetailsShare;
+    private Button buDetailsRegister,budetailsNavigate, buDetailsShare, buDetailsRemind;
     private String userID;
     private int count;
     private String eventName;
@@ -68,6 +70,7 @@ public class EventDetailsActivity extends AppCompatActivity
         tvDetailsEventCount = (TextView) findViewById(R.id.tvDetailsEventCount);
         buDetailsRegister = (Button) findViewById(R.id.buDetailsRegister);
         budetailsNavigate = (Button) findViewById(R.id.budetailsNavigate);
+        buDetailsRemind = (Button) findViewById(R.id.buDetailsRemind);
 
         buDetailsShare = (Button) findViewById(R.id.buDetailsShare);
         budetailsNavigate.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +96,6 @@ public class EventDetailsActivity extends AppCompatActivity
                 shareEvent(message);
             }
         });
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -279,9 +281,9 @@ public class EventDetailsActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
