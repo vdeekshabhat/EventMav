@@ -48,12 +48,11 @@ public class EventDetailsActivity extends AppCompatActivity
     private TextView tvDetailsEventDescription;
     private TextView tvDetailsEventCount;
     private String eventID = null;
-    private Button buDetailsRegister, budetailsNavigate, buDetailsShare;
+    private Button buDetailsRegister,budetailsNavigate, buDetailsShare;
     private String userID;
     private int count;
     private String eventName;
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 101;
-    private boolean isOrganizer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,11 +86,10 @@ public class EventDetailsActivity extends AppCompatActivity
         buDetailsShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 // send the message
                 String eventname = tvDetailsEventName.getText().toString();
-                String subject = "Hey! Check this out - " + eventname;
-                String message = "Hello, Your friend has invited you to attend " + eventname;
+                String subject = "Hey! Check this out - "+eventname;
+                String message = "Hello, Your friend has invited you to attend "+eventname;
                 shareEvent(message);
             }
         });
@@ -108,10 +106,10 @@ public class EventDetailsActivity extends AppCompatActivity
 
         mAuth = FirebaseAuth.getInstance();
         userID = mAuth.getCurrentUser().getUid();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase= FirebaseDatabase.getInstance().getReference();
 
-        Intent intent = getIntent();
-        if (intent != null) {
+        Intent intent=getIntent();
+        if(intent!=null) {
             eventID = getIntent().getStringExtra("eventID");
             displayEventInfo();
         }
@@ -137,19 +135,6 @@ public class EventDetailsActivity extends AppCompatActivity
 //
 //            }
 //        });
-
-        mDatabase.child("Users").child(userID).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                isOrganizer=dataSnapshot.child("isOrganizer").getValue(boolean.class);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
     }
 
@@ -228,11 +213,11 @@ public class EventDetailsActivity extends AppCompatActivity
         startActivity(intent_sms);
     }
 
-    private void checkRegistration() {
+    private void checkRegistration(){
         mDatabase.child("Registration").child(userID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild(eventID))
+                if(dataSnapshot.hasChild(eventID))
                     buDetailsRegister.setVisibility(View.GONE);
 
             }
@@ -255,9 +240,9 @@ public class EventDetailsActivity extends AppCompatActivity
                 tvDetailsEventLocation.setText(dataSnapshot.child("evenLocation").getValue(String.class));
                 tvDetailsEventDescription.setText(dataSnapshot.child("evenDescription").getValue(String.class));
                 tvDetailsEventCount.setText(dataSnapshot.child("eventCount").getValue(String.class));
-                eventName = (dataSnapshot.child("eventName").getValue(String.class)).toString();
+                eventName=(dataSnapshot.child("eventName").getValue(String.class)).toString();
                 count = Integer.parseInt(dataSnapshot.child("eventCount").getValue().toString());
-                if (count == 0) {
+                if (count == 0){
                     // Remove display button
                 }
             }
@@ -304,28 +289,21 @@ public class EventDetailsActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
             startActivity(new Intent(getBaseContext(), HomeActivity.class));
         } else if (id == R.id.nav_camera) {
-            startActivity(new Intent(getBaseContext(), ProfileActivity.class));
+            startActivity(new Intent(getBaseContext(),ProfileActivity.class));
         } else if (id == R.id.nav_gallery) {
-            if(isOrganizer==false){
-                Toast.makeText(this, "You can't add an event if you are not organizer", Toast.LENGTH_SHORT).show();
-
-            }
-            else {
-                startActivity(new Intent(getBaseContext(), AddEventActivity.class));
-            }
+            startActivity(new Intent(getBaseContext(),AddEventActivity.class));
         } else if (id == R.id.nav_slideshow) {
-            startActivity(new Intent(getBaseContext(), MyEventActivity.class));
+            startActivity(new Intent(getBaseContext(),MyEventActivity.class));
 
         } else if (id == R.id.nav_manage) {
             FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(getBaseContext(), LoginActivity.class));
+            startActivity(new Intent(getBaseContext(),LoginActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

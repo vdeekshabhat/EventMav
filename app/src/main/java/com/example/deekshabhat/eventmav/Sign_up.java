@@ -52,9 +52,33 @@ public class Sign_up extends AppCompatActivity {
                 String MavID = etMavID.getText().toString().trim();
                 String Password = etPassword.getText().toString().trim();
                 String Confirm = etConfirm.getText().toString().trim();
-                // String FirstName = etFirstName.getText().toString().trim();
+                boolean isValidForm = true;
 
-                if (MavEmail.endsWith("@mavs.uta.edu")){
+                if(FirstName.isEmpty()){
+                    etFirstName.setError("Enter first name");
+                    isValidForm = false;
+                }
+                if(LastName.isEmpty()){
+                    etLastName.setError("Enter last name");
+                    isValidForm = false;
+                }if(MavEmail.isEmpty() && !MavEmail.endsWith("@mavs.uta.edu")){
+                    etMavEmail.setError("Enter valid mav email");
+                    isValidForm = false;
+                }if(MavID.isEmpty()){
+                    etMavID.setError("Enter mav id");
+                    isValidForm = false;
+                }if(Password.isEmpty()){
+                    etPassword.setError("Enter password");
+                    isValidForm = false;
+                }if(Confirm.isEmpty()){
+                    etConfirm.setError("Enter confirm password");
+                    isValidForm = false;
+                }if(!etPassword.equals(etConfirm)){
+                    etConfirm.setError("Password and confirm password doesn't match");
+                    isValidForm = false;
+                }
+
+                if (isValidForm){
                     createAccount(MavEmail, Password, FirstName, LastName, MavID);
                 } else {
                     Toast.makeText(Sign_up.this, "Please login with your school email address", Toast.LENGTH_LONG).show();

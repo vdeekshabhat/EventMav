@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPassword;
     private Button mLogin;
     private Button mRegister;
+    private Button mForgot;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private String TAG = "login";
@@ -70,6 +71,8 @@ public class LoginActivity extends AppCompatActivity {
         mPassword = (EditText) findViewById(R.id.mPassword);
         mLogin = (Button) findViewById(R.id.mLogin);
         mRegister = (Button) findViewById(R.id.mRegister);
+        mForgot = (Button) findViewById(R.id.mForgot);
+
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -92,6 +95,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, Sign_up.class));
+            }
+        });
+
+        mForgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
             }
         });
 

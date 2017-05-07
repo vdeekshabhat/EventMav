@@ -50,11 +50,11 @@
         android:layout_alignStart="@+id/password" />
 
     <Button
-        android:text="Guest"
+        android:text="Forgot PASSWORD"
         android:textColor="#0E18D3"
-        android:layout_width="152dp"
+        android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:id="@+id/mGuest"
+        android:id="@+id/mForgot"
         android:layout_below="@+id/mLogin"
         android:layout_alignStart="@+id/mLogin" />
 

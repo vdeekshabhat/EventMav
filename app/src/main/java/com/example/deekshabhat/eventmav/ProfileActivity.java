@@ -68,6 +68,8 @@ public class ProfileActivity extends AppCompatActivity
                 String lastName = etEditLastName.getText().toString().trim();
                 String mavid = tvEditMavID.getText().toString().trim();
 
+
+
                 String Uid = mAuth.getCurrentUser().getUid();
                 DatabaseReference current_user = mDatabase.child(Uid);
                 current_user.child("firstname").setValue(firstName);

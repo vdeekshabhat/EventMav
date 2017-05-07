@@ -21,7 +21,8 @@
         android:layout_marginLeft="130dp"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        />
 
     <EditText
         android:layout_width="wrap_content"
@@ -34,7 +35,7 @@
         android:layout_marginTop="11dp"
         android:id="@+id/etFirstName"
         android:hint="First Name"
-        android:textColorHint="#0E18D3"/>
+        android:textColorHint="#0E18D3" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -102,7 +103,7 @@
         android:layout_centerHorizontal="true" />
 
     <CheckBox
-        android:text="CheckBox"
+        android:text="Register as event organizer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/chOrganizer"
