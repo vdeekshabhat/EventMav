@@ -25,6 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -45,45 +46,39 @@ public class CreatedEventActivity extends AppCompatActivity
         setContentView(R.layout.activity_created_event);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
         mAuth = FirebaseAuth.getInstance();
         userID=mAuth.getCurrentUser().getUid();
         lvCreatedEvent=(ListView) findViewById(R.id.lvCreatedEvent);
         Log.d("wtf","lineView:"+lvCreatedEvent);
         mDatabase=FirebaseDatabase.getInstance().getReference();
-
-
         displayEvent();
     }
+
     public void displayEvent()  {
-        mDatabase.child("MyEvent").child(userID).addValueEventListener(new ValueEventListener() {
+        Query query = mDatabase.child("Events").orderByChild("userID").equalTo(userID);
+
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot snap: dataSnapshot.getChildren()) {
-
-                    listEventName = snap.getValue().toString();
+                    String listEventName = snap.child("eventName").getValue(String.class);
+                    arKey.add(snap.getKey());
                     mEventName.add(listEventName);
-
                 }
                 if(mEventName.isEmpty()){
                     Toast.makeText(getApplicationContext(), "Nothing to display!!", Toast.LENGTH_LONG).show();
-
                 }
                 else {
                     LoadListView();
                 }
-
-
             }
 
             @Override
@@ -95,6 +90,15 @@ public class CreatedEventActivity extends AppCompatActivity
     private void LoadListView() throws NullPointerException {
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, mEventName);
         lvCreatedEvent.setAdapter(adapter);
+
+        lvCreatedEvent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getApplicationContext(), EventDetailsActivity.class);
+                intent.putExtra("eventID", arKey.get(i));
+                startActivity(intent);
+            }
+        });
     }
     @Override
     public void onBackPressed() {
