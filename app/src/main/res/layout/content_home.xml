@@ -34,19 +34,12 @@
         android:id="@+id/buScience" />
 
     <Button
-        android:text="Sports"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/buBusiness"
-        android:layout_alignStart="@+id/buScience"
-        android:id="@+id/buSports" />
-
-    <Button
         android:text="Health"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/buCommunity"
         android:layout_alignEnd="@+id/buScience"
+        android:onClick="tileClick"
         android:id="@+id/buHealth" />
 
     <Button
@@ -56,6 +49,7 @@
         android:layout_marginTop="25dp"
         android:id="@+id/buBusiness"
         android:layout_below="@+id/buMusic"
+        android:onClick="tileClick"
         android:layout_alignStart="@+id/buCommunity" />
 
     <Button
@@ -65,6 +59,7 @@
         android:id="@+id/buCommunity"
         android:layout_marginTop="40dp"
         android:layout_below="@+id/buSports"
+        android:onClick="tileClick"
         android:layout_toStartOf="@+id/buSports" />
 
     <Button
@@ -74,6 +69,17 @@
         android:layout_marginTop="34dp"
         android:id="@+id/buOthers"
         android:layout_below="@+id/buCommunity"
+        android:onClick="tileClick"
         android:layout_alignEnd="@+id/buCommunity" />
+
+    <Button
+        android:text="Sports"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buSports"
+        android:layout_alignBaseline="@+id/buBusiness"
+        android:layout_alignBottom="@+id/buBusiness"
+        android:onClick="tileClick"
+        android:layout_alignStart="@+id/buScience" />
 
 </RelativeLayout>

@@ -34,7 +34,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.sql.Date;
+import java.util.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -54,8 +54,9 @@ public class EventDetailsActivity extends AppCompatActivity
     private TextView tvDetailsEventLocation;
     private TextView tvDetailsEventDescription;
     private TextView tvDetailsEventCount;
+    private TextView tvDetailsEventTime;
     private String eventID = null;
-    private Button buDetailsRegister,budetailsNavigate, buDetailsShare, buDetailsRemind;
+    private Button buDetailsRegister,budetailsNavigate, buDetailsShare, buDetailsRemind,buDetailsCancel;
     private String userID;
     private int count;
     private String eventName,eventDate;
@@ -68,7 +69,7 @@ public class EventDetailsActivity extends AppCompatActivity
         setContentView(R.layout.activity_event_details);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        tvDetailsEventTime=(TextView) findViewById(R.id.tvDetailsEventTime);
         tvDetailsEventName = (TextView) findViewById(R.id.tvDetailsEventName);
         tvDetailsEventDate = (TextView) findViewById(R.id.tvDetailsEventDate);
         tvDetailsEventLocation = (TextView) findViewById(R.id.tvDetailsEventLocation);
@@ -77,7 +78,7 @@ public class EventDetailsActivity extends AppCompatActivity
         buDetailsRegister = (Button) findViewById(R.id.buDetailsRegister);
         budetailsNavigate = (Button) findViewById(R.id.budetailsNavigate);
         buDetailsRemind = (Button) findViewById(R.id.buDetailsRemind);
-
+        buDetailsCancel = (Button) findViewById(R.id.buDetailsCancel);
         buDetailsShare = (Button) findViewById(R.id.buDetailsShare);
         budetailsNavigate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,26 +106,26 @@ public class EventDetailsActivity extends AppCompatActivity
         buDetailsRemind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar cal = Calendar.getInstance();
+                String eventname = tvDetailsEventName.getText().toString();
+                String eventtime=tvDetailsEventTime.getText().toString();
+                String eventlocation=tvDetailsEventLocation.getText().toString();
 
-                SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
-                String date=sdf.format(cal.getTime());
+
+                String title="You have a reminder to attend "+eventname+" at "+eventtime+" in "+eventlocation;
                 try {
-                    D2 = (Date) new SimpleDateFormat("MM/DD/yyyy").parse(date);
+                    D1 = (Date) new SimpleDateFormat("yyyy/MM/dd").parse(eventDate);
+                    Log.d("date","Month"+D1);
+
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
 
-
-                long diff = Math.abs(eventDate.getTime() - date.getTime());
-                long diffDays = diff / (24 * 60 * 60 * 1000);
                 Intent intent = new Intent(Intent.ACTION_EDIT);
                 intent.setType("vnd.android.cursor.item/event");
-                intent.putExtra("beginTime", cal.getTimeInMillis());
-                intent.putExtra("allDay", false);
-                intent.putExtra("rrule", "FREQ=DAILY");
-                intent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
-                intent.putExtra("title", "A Test Event from android app");
+                intent.putExtra("beginTime", D1.getTime());
+                intent.putExtra("allDay", true);
+                //intent.putExtra("rrule", "FREQ=YEARLY");
+                intent.putExtra("title", title);
                 startActivity(intent);
             }
         });
@@ -147,6 +148,13 @@ public class EventDetailsActivity extends AppCompatActivity
             eventID = getIntent().getStringExtra("eventID");
             displayEventInfo();
         }
+        buDetailsCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getBaseContext(),HomeActivity.class));
+
+            }
+        });
 
         buDetailsRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -274,18 +282,15 @@ public class EventDetailsActivity extends AppCompatActivity
                 tvDetailsEventLocation.setText(dataSnapshot.child("evenLocation").getValue(String.class));
                 tvDetailsEventDescription.setText(dataSnapshot.child("evenDescription").getValue(String.class));
                 tvDetailsEventCount.setText(dataSnapshot.child("eventCount").getValue(String.class));
+                tvDetailsEventTime.setText(dataSnapshot.child("eventTime").getValue(String.class));
                 eventName=(dataSnapshot.child("eventName").getValue(String.class)).toString();
                 eventDate=(dataSnapshot.child("eventDate").getValue(String.class)).toString();
-                try {
-                     D1 = (Date) new SimpleDateFormat("MM/DD/yyyy").parse(eventDate);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+
 
 
                 count = Integer.parseInt(dataSnapshot.child("eventCount").getValue().toString());
                 if (count == 0){
-                    // Remove display button
+                    buDetailsRegister.setVisibility(View.GONE);
                 }
             }
 

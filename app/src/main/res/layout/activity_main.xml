@@ -25,7 +25,7 @@
         android:layout_alignBaseline="@+id/username"
         android:layout_alignBottom="@+id/username"
         android:layout_alignParentEnd="true"
-        android:text="deeksha.bhat@mavs.uta.edu" />
+        android:hint="xyz@mavs.uta.edu" />
 
     <TextView
         android:text="Password"
@@ -88,7 +88,6 @@
         android:id="@+id/mPassword"
         android:layout_alignBaseline="@+id/password"
         android:layout_alignBottom="@+id/password"
-        android:layout_alignParentEnd="true"
-        android:text="Chinku#1" />
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

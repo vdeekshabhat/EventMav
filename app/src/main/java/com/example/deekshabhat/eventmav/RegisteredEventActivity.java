@@ -63,7 +63,6 @@ public class RegisteredEventActivity extends AppCompatActivity
         userID=mAuth.getCurrentUser().getUid();
         Log.d("wtf", "listview: " + lvMyRegisteredEvent);
         lvMyRegisteredEvent= (ListView) findViewById(R.id.lvMyRegisteredEvent);
-        Log.d("wtf", "listview: " + lvMyRegisteredEvent);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Registration");
         displayEvent();
 

@@ -15,6 +15,9 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ForgotPasswordActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
+    EditText email;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,8 +27,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         sendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText editText = (EditText) findViewById(R.id.mForgotEmail);
-                initSendEmail(editText.getText().toString());
+                email = (EditText) findViewById(R.id.mForgotEmail);
+                initSendEmail(email.getText().toString().trim());
             }
         });
 
@@ -33,7 +36,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     private void initSendEmail(String email_text){
         mAuth = FirebaseAuth.getInstance();
-        mAuth.sendPasswordResetEmail("deeksha.bhat@mavs.uta.edu").addOnCompleteListener(new OnCompleteListener<Void>() {
+        mAuth.sendPasswordResetEmail(email_text).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {

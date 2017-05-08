@@ -97,6 +97,12 @@ public class AddEventActivity extends AppCompatActivity
 
             }
         });
+        btCancelEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getBaseContext(), HomeActivity.class));
+            }
+        });
 
 
 
@@ -146,7 +152,7 @@ public class AddEventActivity extends AppCompatActivity
         }
        if(isValidForm==true) {
            mDatabase.push().setValue(ev);
-           mDatabaseRef.child("MyEvent").child(userID).child(databaseEventID).setValue(EventName);
+           mDatabaseRef.child("MyEvent").child(userID).push().setValue(EventName);
            startActivity(new Intent(getBaseContext(), HomeActivity.class));
            Toast.makeText(AddEventActivity.this, "Success", Toast.LENGTH_LONG).show();
        }

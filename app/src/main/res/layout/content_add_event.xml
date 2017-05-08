@@ -13,16 +13,6 @@
     tools:context="com.example.deekshabhat.eventmav.AddEventActivity"
     >
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/etEventName"
-        android:hint="Name" />
-
     <Button
         android:text="Cancel"
         android:layout_width="wrap_content"
@@ -49,7 +39,7 @@
         android:ems="10"
         android:layout_marginTop="19dp"
         android:id="@+id/etEventDate"
-        android:hint="date"
+        android:hint="MM/DD/YYYY"
         android:layout_below="@+id/etDescription"
         android:layout_alignParentStart="true" />
 
@@ -90,7 +80,7 @@
         android:id="@+id/etEventTime"
         android:layout_above="@+id/etEventNumber"
         android:layout_alignParentStart="true"
-        android:hint="EventTime" />
+        android:hint="HH:MM:SS" />
 
     <Button
         android:text="Submit"
@@ -100,6 +90,16 @@
         android:layout_marginTop="36dp"
         android:id="@+id/btSubmitEvent"
         android:layout_below="@+id/eventCategory"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/etEventName"
+        android:hint="Name"
+        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
 </RelativeLayout>
