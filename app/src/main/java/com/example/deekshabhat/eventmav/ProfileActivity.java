@@ -33,7 +33,7 @@ public class ProfileActivity extends AppCompatActivity
     private EditText etEditFirstName;
     private EditText etEditLastName;
     private TextView tvEditMavID;
-    private Button buEditSubmit;
+    private Button buEditSubmit,buEditCancel;
 
 
     @Override
@@ -59,6 +59,7 @@ public class ProfileActivity extends AppCompatActivity
         etEditLastName = (EditText) findViewById(R.id.etEditLastName);
         tvEditMavID = (TextView) findViewById(R.id.tvEditMavID);
         buEditSubmit=(Button) findViewById(R.id.buEditSubmit);
+        buEditCancel=(Button) findViewById(R.id.buEditCancel);
 
         loadProfile();
         buEditSubmit.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +77,12 @@ public class ProfileActivity extends AppCompatActivity
                 current_user.child("lastname").setValue(lastName);
                 current_user.child("mavid").setValue(mavid);
                 Toast.makeText(getApplicationContext(), "PROFILE UPDATED!", Toast.LENGTH_LONG).show();
+            }
+        });
+        buEditCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getBaseContext(),HomeActivity.class));
             }
         });
     }

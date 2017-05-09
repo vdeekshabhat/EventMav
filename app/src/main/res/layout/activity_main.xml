@@ -10,7 +10,6 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/loginimage"
     android:gravity="center|center"
     tools:context="com.example.deekshabhat.eventmav.LoginActivity">
 
@@ -18,7 +17,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="textNoSuggestions"
         android:ems="10"
         android:layout_marginEnd="11dp"
         android:id="@+id/mUsername"
@@ -30,7 +29,6 @@
     <TextView
         android:text="Password"
         android:textSize="20dp"
-        android:textColor="#0E18D3"
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,29 +37,9 @@
         android:layout_below="@+id/mUsername"
         android:layout_alignStart="@+id/username" />
 
-    <Button
-        android:text="Login"
-        android:textColor="#0E18D3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:id="@+id/mLogin"
-        android:layout_below="@+id/mPassword"
-        android:layout_alignStart="@+id/password" />
-
-    <Button
-        android:text="Forgot PASSWORD"
-        android:textColor="#0E18D3"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:id="@+id/mForgot"
-        android:layout_below="@+id/mLogin"
-        android:layout_alignStart="@+id/mLogin" />
-
     <TextView
         android:text="Username"
         android:textSize="20dp"
-        android:textColor="#0E18D3"
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -71,15 +49,6 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="17dp" />
 
-    <Button
-        android:text="Register"
-        android:textColor="#0E18D3"
-        android:layout_width="152dp"
-        android:layout_height="45dp"
-        android:id="@+id/mRegister"
-        android:layout_below="@+id/mLogin"
-        android:layout_alignParentEnd="true" />
-
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -88,6 +57,33 @@
         android:id="@+id/mPassword"
         android:layout_alignBaseline="@+id/password"
         android:layout_alignBottom="@+id/password"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="Login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:id="@+id/mLogin"
+        android:layout_below="@+id/mPassword"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Forgot PASSWORD"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:id="@+id/mForgot"
+        android:layout_below="@+id/mLogin"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="11dp" />
+
+    <Button
+        android:text="Register"
+        android:layout_width="152dp"
+        android:layout_height="45dp"
+        android:id="@+id/mRegister"
+        android:layout_alignBaseline="@+id/mForgot"
+        android:layout_alignBottom="@+id/mForgot"
         android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

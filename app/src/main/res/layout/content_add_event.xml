@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_add_event"
@@ -9,77 +9,10 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.deekshabhat.eventmav.AddEventActivity"
     >
-
-    <Button
-        android:text="Cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/btSubmitEvent"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="61dp"
-        android:id="@+id/btCancelEvent" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/etDescription"
-        android:hint="Description"
-        android:layout_below="@+id/etEventName"
-        android:layout_alignParentStart="true" />
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/eventCategory"
-        android:layout_below="@+id/etEventLocation"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/etEventLocation"
-        android:layout_marginTop="32dp"
-        android:hint="Location"
-        android:layout_below="@+id/etEventNumber"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/etEventNumber"
-        android:hint="Number of seats available"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="time"
-        android:ems="10"
-        android:layout_marginBottom="12dp"
-        android:id="@+id/etEventTime"
-        android:layout_above="@+id/etEventNumber"
-        android:layout_alignParentStart="true"
-        android:hint="HH:MM:SS" />
-
-    <Button
-        android:text="Submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="36dp"
-        android:id="@+id/btSubmitEvent"
-        android:layout_below="@+id/eventCategory"
-        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="match_parent"
@@ -94,12 +27,87 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="date"
+        android:inputType="textPersonName"
         android:ems="10"
-        android:layout_marginTop="19dp"
-        android:id="@+id/etEventDate"
-        android:hint="YYYY/"
-        android:layout_below="@+id/etDescription"
+        android:id="@+id/etDescription"
+        android:hint="Description"
+        android:layout_below="@+id/etEventName"
         android:layout_alignParentStart="true" />
 
-</RelativeLayout>
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/eventCategory"
+        android:ems="10"
+        android:hint="Category"
+        android:layout_below="@+id/etEventLocation"
+        android:layout_alignParentStart="true"
+        android:dropDownWidth="match_parent"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/etEventDate"
+        android:hint="YYYY/DD/MM"
+        android:layout_below="@+id/etDescription"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:ems="10"
+        android:id="@+id/etEventTime"
+        android:hint="HH:MM:SS"
+        android:layout_marginTop="11dp"
+        android:layout_below="@+id/etEventDate"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/etEventNumber"
+        android:hint="Number of seats available"
+        android:layout_below="@+id/etEventTime"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/etEventLocation"
+        android:hint="Location"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <Button
+        android:text="Cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/btSubmitEvent"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="61dp"
+        android:id="@+id/btCancelEvent" />
+
+    <Button
+        android:text="Submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="36dp"
+        android:id="@+id/btSubmitEvent"
+        android:layout_alignParentStart="true" />
+    </RelativeLayout>
+
+</LinearLayout>

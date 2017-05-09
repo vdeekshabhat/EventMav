@@ -37,6 +37,7 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
         </activity>
         <activity
@@ -44,37 +45,37 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".HomeActivity"
-            android:label="@string/title_activity_home"
+            android:label="Home"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ProfileActivity"
-            android:label="@string/title_activity_profile"
+            android:label="My Profile"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MyEventActivity"
-            android:label="@string/title_activity_my_event"
+            android:label="My Event"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AddEventActivity"
-            android:label="@string/title_activity_add_event"
+            android:label="Add Event"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ListEventActivity"
-            android:label="@string/title_activity_list_event"
+            android:label="Event List"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".EventDetailsActivity"
-            android:label="@string/title_activity_event_details"
+            android:label="Event Details"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RegisteredEventActivity"
-            android:label="@string/title_activity_registered_event"
+            android:label="My Registered Activity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -112,7 +113,7 @@
         <activity android:name=".ForgotPasswordActivity" />
         <activity
             android:name=".CreatedEventActivity"
-            android:label="@string/title_activity_created_event"
+            android:label="My Created Activity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"></activity>
     </application>

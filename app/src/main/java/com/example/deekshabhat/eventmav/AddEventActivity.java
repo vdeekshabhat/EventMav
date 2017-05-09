@@ -138,8 +138,9 @@ public class AddEventActivity extends AppCompatActivity
             etEventLocation.setError("Enter Event Location");
             isValidForm = false;
         }
-        if(EventDate.isEmpty()){
-            etEventDate.setError("Enter Event Date in MM/DD/YYYY format");
+        if(EventDate.isEmpty() || (!EventDate.matches("\\d{4}/\\d{2}/\\d{2}"))){
+
+            etEventDate.setError("Enter Event Date in YYYY/DD/MM format");
             isValidForm = false;
         }
         if(EventCount.isEmpty()){
