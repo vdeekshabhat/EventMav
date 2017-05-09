@@ -61,7 +61,6 @@ public class RegisteredEventActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         mAuth = FirebaseAuth.getInstance();
         userID=mAuth.getCurrentUser().getUid();
-        Log.d("wtf", "listview: " + lvMyRegisteredEvent);
         lvMyRegisteredEvent= (ListView) findViewById(R.id.lvMyRegisteredEvent);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Registration");
         displayEvent();

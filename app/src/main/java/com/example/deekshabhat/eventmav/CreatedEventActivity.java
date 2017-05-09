@@ -58,7 +58,6 @@ public class CreatedEventActivity extends AppCompatActivity
         mAuth = FirebaseAuth.getInstance();
         userID=mAuth.getCurrentUser().getUid();
         lvCreatedEvent=(ListView) findViewById(R.id.lvCreatedEvent);
-        Log.d("wtf","lineView:"+lvCreatedEvent);
         mDatabase=FirebaseDatabase.getInstance().getReference();
         displayEvent();
     }

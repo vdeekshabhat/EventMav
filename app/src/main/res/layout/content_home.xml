@@ -65,16 +65,6 @@
         android:layout_toStartOf="@+id/buSports" />
 
     <Button
-        android:text="Others"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:id="@+id/buOthers"
-        android:layout_below="@+id/buCommunity"
-        android:onClick="tileClick"
-        android:layout_alignEnd="@+id/buCommunity" />
-
-    <Button
         android:text="Sports"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -84,5 +74,15 @@
         android:layout_alignBottom="@+id/buBusiness"
         android:onClick="tileClick"
         android:layout_alignStart="@+id/buScience" />
+
+    <Button
+        android:text="Others"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:id="@+id/buOthers"
+        android:layout_below="@+id/buCommunity"
+        android:onClick="tileClick"
+        android:layout_alignEnd="@+id/buCommunity" />
 
 </LinearLayout>

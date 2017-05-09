@@ -81,7 +81,7 @@ public class Sign_up extends AppCompatActivity {
                     etConfirm.setError("Password and confirm password doesn't match");
                     isValidForm = false;
                 }
-                if(isValidForm==true) {
+                if(isValidForm==true && Password.matches("^[a-zA-Z0-9]{6,}$")) {
                     createAccount(MavEmail, Password, FirstName, LastName, MavID);
                 }
                 else{

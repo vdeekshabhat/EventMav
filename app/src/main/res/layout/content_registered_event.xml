@@ -13,10 +13,12 @@
     tools:context="com.example.deekshabhat.eventmav.RegisteredEventActivity"
     tools:showIn="@layout/app_bar_registered_event">
 
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:id="@+id/lvMyRegisteredEvent" />
+
 </RelativeLayout>

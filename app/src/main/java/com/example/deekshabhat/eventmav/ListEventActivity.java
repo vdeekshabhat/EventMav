@@ -70,31 +70,31 @@ public class ListEventActivity extends AppCompatActivity
         }
         else
             Log.d("status", "no intent");
-            mListView = (ListView) findViewById(R.id.mListView);
+        mListView = (ListView) findViewById(R.id.mListView);
 
 
     }
-        public void openCategory(String category) {
-            com.google.firebase.database.Query query = mDatabase.orderByChild("eventCategory").equalTo(category);
-            query.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                        for(DataSnapshot snap: dataSnapshot.getChildren()) {
-                           // String eventName = (String) ((java.util.HashMap)snap.getValue()).entrySet().toArray()[4];
-                            String eventName = snap.child("eventName").getValue(String.class);
-                            String key=snap.getKey();
-                            arKey.add(key);
-                            if (!areventName.contains(eventName))
-                                areventName.add(eventName);
-                        }
-                        LoadListView();
-                    }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
+    public void openCategory(String category) {
+        com.google.firebase.database.Query query = mDatabase.orderByChild("eventCategory").equalTo(category);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot snap: dataSnapshot.getChildren()) {
+                    // String eventName = (String) ((java.util.HashMap)snap.getValue()).entrySet().toArray()[4];
+                    String eventName = snap.child("eventName").getValue(String.class);
+                    String key=snap.getKey();
+                    arKey.add(key);
+                    if (!areventName.contains(eventName))
+                        areventName.add(eventName);
                 }
-            });
+                LoadListView();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void LoadListView() {
@@ -109,17 +109,17 @@ public class ListEventActivity extends AppCompatActivity
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent=new Intent(getBaseContext(), EventDetailsActivity.class);
-                    intent.putExtra("eventID", arKey.get(position) );
-                    startActivity(intent);
+                        Intent intent=new Intent(getBaseContext(), EventDetailsActivity.class);
+                        intent.putExtra("eventID", arKey.get(position) );
+                        startActivity(intent);
 
 
-                // ID = eventIDArrayList[position]
-                // pass ID to new activity
-            }
+                        // ID = eventIDArrayList[position]
+                        // pass ID to new activity
+                    }
 
 
-        });
+                });
 
     }
 

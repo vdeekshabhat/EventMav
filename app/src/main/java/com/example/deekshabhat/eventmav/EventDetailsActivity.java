@@ -277,12 +277,12 @@ public class EventDetailsActivity extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d("eventdata", dataSnapshot.getKey());
-                tvDetailsEventName.setText(dataSnapshot.child("eventName").getValue(String.class));
-                tvDetailsEventDate.setText(dataSnapshot.child("eventDate").getValue(String.class));
-                tvDetailsEventLocation.setText(dataSnapshot.child("evenLocation").getValue(String.class));
-                tvDetailsEventDescription.setText(dataSnapshot.child("evenDescription").getValue(String.class));
-                tvDetailsEventCount.setText(dataSnapshot.child("eventCount").getValue(String.class));
-                tvDetailsEventTime.setText(dataSnapshot.child("eventTime").getValue(String.class));
+                tvDetailsEventName.setText("Name:"+dataSnapshot.child("eventName").getValue(String.class));
+                tvDetailsEventDate.setText("Date:"+dataSnapshot.child("eventDate").getValue(String.class));
+                tvDetailsEventLocation.setText("Location:"+dataSnapshot.child("evenLocation").getValue(String.class));
+                tvDetailsEventDescription.setText("Description:"+dataSnapshot.child("evenDescription").getValue(String.class));
+                tvDetailsEventCount.setText("Number Of Seats:"+dataSnapshot.child("eventCount").getValue(String.class));
+                tvDetailsEventTime.setText("Time:"+dataSnapshot.child("eventTime").getValue(String.class));
                 eventName=(dataSnapshot.child("eventName").getValue(String.class)).toString();
                 eventDate=(dataSnapshot.child("eventDate").getValue(String.class)).toString();
 
@@ -339,9 +339,10 @@ public class EventDetailsActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_send) {
             startActivity(new Intent(getBaseContext(), HomeActivity.class));
-        } else if (id == R.id.nav_camera) {
+        }
+        else if (id == R.id.nav_camera) {
             startActivity(new Intent(getBaseContext(),ProfileActivity.class));
         } else if (id == R.id.nav_gallery) {
             startActivity(new Intent(getBaseContext(),AddEventActivity.class));
