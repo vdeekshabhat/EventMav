@@ -59,7 +59,7 @@ public class EventDetailsActivity extends AppCompatActivity
     private Button buDetailsRegister,budetailsNavigate, buDetailsShare, buDetailsRemind,buDetailsCancel;
     private String userID;
     private int count;
-    private String eventName,eventDate;
+    private String eventName,eventDate,eventLocation,eventTime;
     private Date D1,D2;
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 101;
 
@@ -97,21 +97,19 @@ public class EventDetailsActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 // send the message
-                String eventname = tvDetailsEventName.getText().toString();
-                String subject = "Hey! Check this out - "+eventname;
-                String message = "Hello, Your friend has invited you to attend "+eventname;
+                String message = "Hello, Your friend has invited you to attend "+eventName;
                 shareEvent(message);
             }
         });
         buDetailsRemind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String eventname = tvDetailsEventName.getText().toString();
+
                 String eventtime=tvDetailsEventTime.getText().toString();
                 String eventlocation=tvDetailsEventLocation.getText().toString();
 
 
-                String title="You have a reminder to attend "+eventname+" at "+eventtime+" in "+eventlocation;
+                String title="You have a reminder to attend "+eventName+" at "+eventTime+" in "+eventLocation;
                 try {
                     D1 = (Date) new SimpleDateFormat("yyyy/MM/dd").parse(eventDate);
                     Log.d("date","Month"+D1);
@@ -285,7 +283,8 @@ public class EventDetailsActivity extends AppCompatActivity
                 tvDetailsEventTime.setText("Time:"+dataSnapshot.child("eventTime").getValue(String.class));
                 eventName=(dataSnapshot.child("eventName").getValue(String.class)).toString();
                 eventDate=(dataSnapshot.child("eventDate").getValue(String.class)).toString();
-
+                eventLocation=(dataSnapshot.child("evenLocation").getValue(String.class));
+                eventTime=(dataSnapshot.child("eventTime").getValue(String.class));
 
 
                 count = Integer.parseInt(dataSnapshot.child("eventCount").getValue().toString());
